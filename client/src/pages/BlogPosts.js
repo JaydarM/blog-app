@@ -33,10 +33,12 @@ function BlogPosts() {
 
 	return (
 		<>
+		<div className="d-grid">
 		{(user.id != null) ?
 			<CreatePost fetchBlogPosts={fetchBlogPosts} />
 			:
-			<Link className="btn btn-outline-primary" role="button" to="/login">Login to Create Post</Link>}
+			<Link className="btn btn-outline-primary my-3" role="button" to="/login">Login to Create Post</Link>}
+		</div>
 		{(hasBlogPosts) ?
 			<UserView blogPosts={blogPosts} />
 			:

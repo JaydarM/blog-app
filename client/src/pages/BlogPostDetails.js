@@ -4,7 +4,6 @@ import 'notyf/notyf.min.css';
 import { useState, useEffect, useContext } from 'react';
 import UserContext from "../context/UserContext";
 import { useParams } from 'react-router-dom';
-import { Button } from "react-bootstrap";
 import dayjs from 'dayjs';
 import { Link } from "react-router-dom";
 
@@ -17,9 +16,6 @@ function BlogPostDetails() {
 	const notyf = new Notyf();
 
 	const { user } = useContext(UserContext);
-
-	// Add user to check if able to update or delete
-	// Check if logged in user is the same as post author
 
 	const { blogPostId } = useParams();
 
@@ -70,29 +66,35 @@ function BlogPostDetails() {
 	// Drill down blogPostId to Comment Component
 	return (
 		<>
-		<div>
-			{/*Buttons for Back | Edit | Delete, last 2 only available if user made post*/}
-			<Link className="btn btn-dark" role="button" to="/posts">Back</Link>
+		<div className="my-3 d-flex flex-row">
+			<div className="flex-fill">
+				<Link className="btn btn-dark" role="button" to="/posts">Back</Link>
+			</div>
 			{(user.id === userId) ?
-				<>
+			<>
+			<div className="mx-3">
 				<EditPost blogPost={blogPost} fetchData={fetchBlogPostDetails} />
+			</div>
+			<div>
 				<DeletePost blogPostId={blogPostId} />
-				</>
-				:
-				<></>}
+			</div>
+			</>
+			:
+			<></>}
 			{(user.isAdmin) ?
+			<div>
 				<DeletePost blogPostId={blogPostId} />
-				:
-				<></>}
+			</div>
+			:
+			<></>}
 		</div>
-		<div>
+		<div className="my-3">
 			<h1>{title}</h1>
-			<h5>By {username}</h5>
-			<h5>{formattedDate}</h5>
+			<h5>By {username} | {formattedDate}</h5>
 			<hr className="hr" />
 			<p>{content}</p>
 		</div>
-		<div>
+		<div className="my-5">
 			<h3>Comments</h3>
 			<Comments blogPostId={blogPostId} />
 		</div>
